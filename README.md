@@ -33,7 +33,7 @@ Face recognition using PCA and LDA
             4. Repeat for all images.
 
         LDA training: Construct centered matrix using the same approach as that of PCA.
-        Reduce dimension using multi class Fisher's LDA approach.
+                      Reduce dimension using multi class Fisher's LDA approach.
 
         LDA testing: Same as training. (You ca also try using the PCA testing procedure.
         
