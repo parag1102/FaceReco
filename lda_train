@@ -1,0 +1,21 @@
+lda_script = function(k=360)
+{
+pca_script(k)
+class_col1=matrix(data=NA, nrow=0, ncol=1)
+class_col2=matrix(data=NA, nrow=0, ncol=1)
+
+for(i in 1:360)
+{
+mat = matrix(data=c(as.integer((i-1)/9)+1), nrow=1, ncol=1)	
+class_col1=rbind(class_col1,mat)
+}
+train.lda = cbind(train_pca,class_col1)
+for(i in 1:40)
+{
+mat = matrix(data=c(i), nrow=1, ncol=1)	
+class_col2=rbind(class_col2,mat)
+}
+test.lda = cbind(test_pca,class_col2)
+lda_train = lda(train.lda[,(k+1)]~.,data.frame(train_pca))
+predict(lda_train, data.frame(test_pca))
+}

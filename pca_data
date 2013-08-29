@@ -1,0 +1,20 @@
+train.x = matrix(data=NA, nrow=0, ncol=10304)
+test.x = matrix(data=NA, nrow=0, ncol=10304)
+for(j in 1:40)
+{
+	folder = "C:/Users/Neeta/Documents/att_faces/s"
+	folder = paste(folder,j,sep="")
+	setwd(folder)
+	for(i in 1:9)
+	{
+		name = paste(i,".pgm",sep="")
+		x = read.pnm(file = name)
+		mat.x = getChannels(x)
+		row.x = c(mat.x)
+		train.x = rbind(train.x, row.x)
+	}
+	x = read.pnm(file = "10.pgm")
+	mat.x = getChannels(x)
+	row.x = c(mat.x)
+	test.x = rbind(test.x, row.x)
+}

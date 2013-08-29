@@ -1,0 +1,37 @@
+pca_script = function(k=360)
+{
+center.train = matrix(data=NA, nrow=0, ncol=10304)
+center.test = matrix(data=NA, nrow=0, ncol=10304)
+mean.train = mean(train.x)
+mean.test = mean(test.x)
+for(j in 1:360)
+{
+	center.train = rbind(center.train,train.x[j,]-mean.train)
+}
+for(j in 1:40)
+{
+	center.test = rbind(center.test,test.x[j,]-mean.test)
+}
+pca_train = prcomp(train.x, scale=TRUE)
+e = pca_train$rotation[,1:k]
+e.tr = t(e)
+train_pca = e.tr%*%t(center.train)
+train_pca = t(train_pca)
+test_pca = e.tr%*%t(center.test)
+test_pca = t(test_pca)
+classes=matrix(data=NA,nrow=0,ncol=1)
+for (i in 1:40)
+{	
+	min=10000
+	for (j in 1:360)
+	{
+		d=dist(rbind(test_pca[i,],train_pca[j,]))
+		if(d<min)
+			{
+				min=d
+				index=as.integer(j/9)+1
+			}
+	}
+	classes=rbind(classes,index)
+}
+}
